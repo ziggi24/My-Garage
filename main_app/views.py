@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth import login
 
 from .models import Bike, Service
-from .forms import Bike_Form, Service_Form
+from .forms import Bike_Form, Service_Form, SignupForm
 
 # Create your views here.
 
@@ -14,7 +14,6 @@ def about(request):
   return render(request, 'about.html')
 
 def bikes_index(request):
-
   if request.method == 'POST':
     bike_form = Bike_Form(request.POST)
     if bike_form.is_valid:
@@ -57,3 +56,17 @@ def add_service(request, bike_id):
     new_service.bike_id = bike_id
     new_service.save()
   return redirect('detail', bike_id=bike_id)
+
+def signup(request):
+  error_message = ''
+  if request.method == 'POST':
+    form = SignupForm(request.POST)
+    if form.is_valid():
+      login(request, user)
+      return redirect('index')
+    else: 
+      error_message = 'Invalid signup please try again'
+  else:
+    form = SignupForm()
+  context = {'form': form, 'error_message': error_message}
+  return render(request, 'registration/signup.html', context)
