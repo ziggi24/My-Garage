@@ -14,4 +14,5 @@ urlpatterns = [
   path('bikes/<int:bike_id>/delete', views.bikes_delete, name='delete'), 
   path('bikes/<int:bike_id>/edit', views.bikes_edit, name='edit'), 
   path('bikes/<int:bike_id>/add_service', views.add_service, name='add_service'),
+  path('accounts/signup', views.signup, name='signup'),
 ]
